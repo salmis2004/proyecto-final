@@ -1,0 +1,46 @@
+services:
+  - type: web
+    name: laravel-app
+    runtime: php
+    repo: https://github.com/salmis2004/proyecto-final.git
+    branch: main
+    buildCommand: |
+      composer install --no-dev
+      php artisan key:generate
+      php artisan migrate --force
+      php artisan db:seed --force
+    startCommand: php artisan serve --host=0.0.0.0 --port=$PORT
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_KEY
+        generateValue: true
+      - key: APP_DEBUG
+        value: false
+      - key: DB_CONNECTION
+        value: mysql
+      - key: DB_HOST
+        fromDatabase:
+          name: proyecto-final-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: proyecto-final-db
+          property: port
+      - key: DB_DATABASE
+        fromDatabase:
+          name: proyecto-final-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: proyecto-final-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: proyecto-final-db
+          property: password
+
+databases:
+  - name: proyecto-final-db
+    databaseName: proyecto_final
+    user: laravel
