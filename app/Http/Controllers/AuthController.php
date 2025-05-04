@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth; 
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -41,5 +42,12 @@ class AuthController extends Controller
 
         
         return response()->json(['message' => 'Usuario creado exitosamente', 'user' => $user], 201);
+    }
+
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete(); 
+        return response()->json(['masaje'=>'sesion cerrada correctamente']);
+
     }
 }

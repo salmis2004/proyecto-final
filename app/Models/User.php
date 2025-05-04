@@ -44,7 +44,7 @@ class User extends Authenticatable
 
     public function words()
     {
-        return $this ->belongsToMany(Word::class)->withTimestamps();
+        return $this ->belongsToMany(Word::class, 'player_words', 'user_id', 'word_id');
     }
 
     
