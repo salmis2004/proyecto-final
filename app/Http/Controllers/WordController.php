@@ -17,10 +17,18 @@ class WordController extends Controller
                 'message' => 'Usuario no autenticado.'
             ], 401);
         }
+
+        //Se valida que exista la categoria
+        $category=Category::find($categoryId);
+        if(!$category){
+            return response()->json([
+                'message' => 'POV: La categoria No existe '
+            ]);
+        }
         // Obtener el usuario autenticado
         $user = Auth::user();
 
-        // Obtener las palabras que el usuario ya ha visto (con ID)
+        // Obtener las palabras que el usuario ya ha visto 
         $seenWordId = $user->words->pluck('id')->toArray();
 
         //Limite de palabras 
@@ -40,7 +48,7 @@ class WordController extends Controller
         // Si no hay más palabras en esa categoría
         if ($words -> isEmpty()) {
             return response()->json([
-                'message' => 'Ya no hay más palabras nuevas en esta categoría 😅 '
+                'message' => 'Ya no hay más palabras nuevas en esta categoría :( '
             ]);
         }
 
@@ -55,7 +63,7 @@ class WordController extends Controller
         }
         
         return response()->json([
-            'category' => $words->first()->category->name ?? 'Sin categoría',
+            'category' => $words->first()->category->name,
             'words' => $words,
         ]);
     }
