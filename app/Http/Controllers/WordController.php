@@ -68,6 +68,7 @@ class WordController extends Controller
         ]);
     }
 
+    //Funcion para obtener todas las categorias
     public function getCategory()
     {
         $category=Category::all();
@@ -77,6 +78,7 @@ class WordController extends Controller
         ]);
     } 
 
+    //Se optiene las palabras que ya fuerion asignadas al jugador 
     public function getPlayerWord()
     {
         $user = Auth::user();
