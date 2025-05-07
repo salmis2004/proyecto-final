@@ -28,6 +28,5 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::get('/weather', [App\Http\Controllers\Api\WeatherController::class, 'getWeather']);
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
-Route::get('/getCategory', [WordController::class, 'getCategory']);
-
-Route::middleware('auth:sanctum')->get('/player-words', [WordController::class, 'getPlayerWord']);
+Route::get('/getCategory', [CategoryController::class, 'getCategory']);
+Route::middleware('auth:sanctum')->get('/player-words', [PlayerWordController::class, 'getPlayerWord']);

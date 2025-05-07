@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\PlayerWord;
 use App\Models\Word;
-use App\Models\Category; 
+
 
 class WordController extends Controller
 {
@@ -68,26 +67,4 @@ class WordController extends Controller
         ]);
     }
 
-    //Funcion para obtener todas las categorias
-    public function getCategory()
-    {
-        $category=Category::all();
-
-        return response ()->json([
-            'categories'=>$category
-        ]);
-    } 
-
-    //Se optiene las palabras que ya fuerion asignadas al jugador 
-    public function getPlayerWord()
-    {
-        $user = Auth::user();
-
-        $words=$user->words()->with('category')->get();
-        return response()->json([
-            'user'=>$user->name,
-            'word'=>$words
-
-        ]);
-    }
 }
