@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WordController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PlayerWordController;
 Use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Api\WeatherController;
 
