@@ -69,13 +69,13 @@ class WordController extends Controller
     }
 
     public function checkAnswer( Request $request){
-        $wordId=$request->imput('word_id');
-        $selectOption=$request->imput('select_option');
+        $wordId=$request->input('word_id');
+        $selectOption=$request->input('select_option');
 
         $word=Word::find($wordId);
         if(!$word){
             return response()->json([
-                'massage'=>'La palabra no existe'
+                'message'=>'La palabra no existe'
             ]);
         }
 
@@ -83,19 +83,19 @@ class WordController extends Controller
 
         if(!$option){
             return response()->json([
-                'massage'=>'opcion no valida'
+                'message'=>'opcion no valida'
             ]);
         }
 
-        if($selectOption ->is_correct==1){
+        if($option ->is_correct==1){
             return response()->json ([
-                'massage'=>'Respuesta correctaaaaa!!!!',
+                'message'=>'Respuesta correctaaaaa!!!!',
                 'correct'=>true
             ]);
         }
         else{
             return response()->json ([
-                'massage'=>'Respuesta Incorrecta :(',
+                'message'=>'Respuesta Incorrecta :(',
                 'correct'=>false
             ]);
         }
