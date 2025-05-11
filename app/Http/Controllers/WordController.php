@@ -121,7 +121,7 @@ class WordController extends Controller
         }
 
         $words=$category->words
-        ->ith('options')->get()
+        ->with('options')->get()
         ->filter(function ($word) use($letter){
             return stripos($word->word,$letter)===0;
         })->values();
