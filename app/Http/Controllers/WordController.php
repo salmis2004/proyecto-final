@@ -112,7 +112,7 @@ class WordController extends Controller
             ]);
         }
 
-        $category=Category::finde($categoryId);
+        $category=Category::fide($categoryId);
 
         if(!$category){
                 return response()->json([
@@ -121,8 +121,8 @@ class WordController extends Controller
         }
 
         $words=$category->words->filter(function ($word) use($letter){
-            return stripos($word->word,$letter)==0;
-        });
+            return stripos($word->word,$letter)===0;
+        })->values();;
 
         if($words->isEmpty()){
             return response()->json([
