@@ -12,6 +12,7 @@ class WordController extends Controller
 {
     public function getRandomWord(Request $request,$categoryId)
     {
+        $user = Auth::user();
         if (!Auth::check()) {
             return response()->json([
                 'message' => 'Usuario no autenticado.'
@@ -25,9 +26,6 @@ class WordController extends Controller
                 'message' => 'POV: La categoria No existe '
             ]);
         }
-        // Obtener el usuario autenticado
-        $user = Auth::user();
-
         // Obtener las palabras que el usuario ya ha visto 
         $seenWordId = $user->words->pluck('id')->toArray();
 
@@ -102,6 +100,7 @@ class WordController extends Controller
         }
     }
 
+    //Me optiene una palabra en base a la letra que me de el usuario
     public function getWordLetter(Request $request){
         $letter=$request->input('letter');
         $categoryId=$request->input('category_id');
@@ -139,7 +138,7 @@ class WordController extends Controller
 
     }
 
-    
+    //Me da las plabras de una categoria de manera asc o desc
     public function getWordOrderLetter(Request $request){
         $order=$request->input('order','asc');
         $categoryId=$request->input('category_id');
