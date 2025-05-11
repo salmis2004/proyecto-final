@@ -144,7 +144,7 @@ class WordController extends Controller
         $order=$request->input('order','asc');
         $categoryId=$request->input('category_id');
 
-        if(!on_array($order,['asc','desc'])){
+        if(!in_array($order,['asc','desc'])){
             return response()->json([
                 'message'=>"En el parametro 'order' debes colocar asc o desc"
             ]);
