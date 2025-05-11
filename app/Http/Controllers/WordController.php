@@ -141,7 +141,7 @@ class WordController extends Controller
 
     
     public function getWordOrderLetter(Request $request){
-        $order=$request->input('asc','des');
+        $order=$request->input('asc','order');
         $categoryId=$request->input('category_id');
 
 
