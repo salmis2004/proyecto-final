@@ -139,4 +139,29 @@ class WordController extends Controller
 
     }
 
+    
+    public function getWordOrderLetter(Request $request){
+        $order=$request->input('asc','des');
+        $categoryId=$request->input('category_id');
+
+
+        $category=Category::find($categoryId);
+
+        if(!$category){
+                return response()->json([
+                'message'=>"La categoria no existe"
+            ]);
+        }
+
+        $words=$category->words()
+        ->with('options')->get()
+        ->orderBy('word',$order);
+
+        return response()->json([
+            'message'=> $words
+            ]);
+
+
+    }
+
 }
