@@ -32,6 +32,12 @@ class WordController extends Controller
 
         //Limite de palabras 
         $limit = (int)$request->query('limit',5);
+
+        if($limit>5){
+            return response()->json([
+                'message' => 'No existe esta categoria '
+            ]);
+        }
         
 
         // Obtener una palabra aleatoria que no haya sido vista por el usuario en la categoría seleccionada
