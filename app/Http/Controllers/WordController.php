@@ -26,12 +26,12 @@ class WordController extends Controller
                 'message' => 'POV: La categoria No existe '
             ]);
         }
-        
+
         // Obtener las palabras que el usuario ya ha visto 
         $seenWordId = $user->words->pluck('id')->toArray();
 
         //Limite de palabras 
-        $limit = (int)$request->query('limit',1);
+        $limit = (int)$request->query('limit',5);
         
 
         // Obtener una palabra aleatoria que no haya sido vista por el usuario en la categoría seleccionada
