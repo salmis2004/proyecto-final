@@ -120,9 +120,11 @@ class WordController extends Controller
             ]);
         }
 
-        $words=$category->words->with('options')->get->filter(function ($word) use($letter){
+        $words=$category->words
+        ->ith('options')->get()
+        ->filter(function ($word) use($letter){
             return stripos($word->word,$letter)===0;
-        })->values();;
+        })->values();
 
         if($words->isEmpty()){
             return response()->json([
