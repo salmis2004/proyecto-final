@@ -112,7 +112,7 @@ class WordController extends Controller
             ]);
         }
 
-        $category=Category::finde($categoryId);
+        $category=Category::find($categoryId);
 
         if(!$category){
                 return response()->json([
