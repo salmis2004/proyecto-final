@@ -141,21 +141,26 @@ class WordController extends Controller
 
     
     public function getWordOrderLetter(Request $request){
-        $order=$request->input('asc','order');
+        $order=$request->input('order','asc');
         $categoryId=$request->input('category_id');
 
+        if(!on_array($order,['asc','desc'])){
+            return response()->json([
+                'message'=>"En el parametro 'order' debes colocar asc o desc"
+            ]);
+        }
 
         $category=Category::find($categoryId);
 
         if(!$category){
-                return response()->json([
+            return response()->json([
                 'message'=>"La categoria no existe"
             ]);
         }
 
         $words=$category->words()
-        ->with('options')->get()
-        ->orderBy('word',$order);
+        ->with('options')
+        ->orderBy('word',$order)->get();
 
         return response()->json([
             'message'=> $words
