@@ -26,6 +26,7 @@ class WordController extends Controller
                 'message' => 'POV: La categoria No existe '
             ]);
         }
+        
         // Obtener las palabras que el usuario ya ha visto 
         $seenWordId = $user->words->pluck('id')->toArray();
 
