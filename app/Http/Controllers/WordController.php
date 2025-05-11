@@ -102,7 +102,7 @@ class WordController extends Controller
         }
     }
 
-    public function getWordLetter(Reques $request){
+    public function getWordLetter(Request $request){
         $letter=$request->input('letter');
         $categoryId=$request->input('category_id');
 
@@ -112,20 +112,27 @@ class WordController extends Controller
             ]);
         }
 
-        $words=$category->words->filtrer(function ($word) use($letter){
+        $category=Category::finde($categoryId);
+
+        if(!$category){
+                return response()->json([
+                'message'=>"La categoria no existe"
+            ]);
+        }
+
+        $words=$category->words->filter(function ($word) use($letter){
             return stripos($word->word,$letter)==0;
         });
 
-        if($word->isEmpty()){
+        if($words->isEmpty()){
             return response()->json([
                 'message'=> "No se encontraron palabras que empiecen con esa letra :o"
             ]);
-
-            return response()->json([
-                'message'=> $words
-            ]);
-
         }
+
+        return response()->json([
+            'message'=> $words
+            ]);
 
 
     }
