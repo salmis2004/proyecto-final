@@ -68,6 +68,7 @@ class WordController extends Controller
         ]);
     }
 
+    //Funcion para responder la definicion correscta de la palabra 
     public function checkAnswer( Request $request){
         $wordId=$request->input('word_id');
         $selectOption=$request->input('select_option');
@@ -99,6 +100,34 @@ class WordController extends Controller
                 'correct'=>false
             ]);
         }
+    }
+
+    public function getWordLetter(Reques $request){
+        $letter=$request->input('letter');
+        $categoryId=$request->input('category_id');
+
+        if(strlen($letter)!=1){
+            return response()->json([
+                'message'=>"La letra debe de ser de 1 caracter"
+            ]);
+        }
+
+        $words=$category->words->filtrer(function ($word) use($letter){
+            return stripos($word->word,$letter)==0;
+        });
+
+        if($word->isEmpty()){
+            return response()->json([
+                'message'=> "No se encontraron palabras que empiecen con esa letra :o"
+            ]);
+
+            return response()->json([
+                'message'=> $words
+            ]);
+
+        }
+
+
     }
 
 }
