@@ -87,18 +87,19 @@ class WordController extends Controller
 
         $option=$word->options->find($selectOption);
 
+        if(!$option){
+            return response()->json([
+                'message'=>'Respuesta Incorectaaaaa'
+            ]);
+        }
+
         if($option ->is_correct==1){
             return response()->json ([
                 'message'=>'Respuesta correctaaaaa!!!!',
                 'correct'=>true
             ]);
         }
-        else{
-            return response()->json ([
-                'message'=>'Respuesta Incorrecta :(',
-                'correct'=>false
-            ]);
-        }
+
     }
 
     //Me optiene una palabra en base a la letra que me de el usuario
