@@ -87,12 +87,6 @@ class WordController extends Controller
 
         $option=$word->options->find($selectOption);
 
-        if(!$option){
-            return response()->json([
-                'message'=>'opcion no valida'
-            ]);
-        }
-
         if($option ->is_correct==1){
             return response()->json ([
                 'message'=>'Respuesta correctaaaaa!!!!',
