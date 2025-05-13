@@ -35,7 +35,7 @@ class WordController extends Controller
 
         if($limit>5){
             return response()->json([
-                'message' => 'No existen mas palabras '
+                'message' => 'No existen más palabras '
             ]);
         }
         
