@@ -35,3 +35,4 @@ Route::middleware('auth:sanctum')->get('/player-words', [PlayerWordController::c
 Route::middleware('auth:sanctum')->post('check-answer', [WordController::class, 'checkAnswer']);
 Route::post('word-letter', [WordController::class, 'getWordLetter']);
 Route::post('order-word-letter', [WordController::class, 'getWordOrderLetter']);
+Route::post('getWords', [WordController::class, 'getWords']);

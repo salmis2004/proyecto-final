@@ -166,8 +166,56 @@ class WordController extends Controller
         return response()->json([
             'message'=> $words
             ]);
+    }
 
+    // NEW
+    public function getWords(Request $request){
+        
+        $letter = $request->input('letter');
+        $order = $request->input('order', 'asc');
+        $categoryId = $request->input('category_id');
 
+        // Validaciones
+        if ($letter && strlen($letter) != 1) {
+            return response()->json([
+                'message' => "La letra debe de ser de 1 caracter"
+            ]);
+        }
+
+        if (!in_array($order, ['asc', 'desc'])) {
+            return response()->json([
+                'message' => "En el parámetro 'order' debes colocar 'asc' o 'desc'"
+            ]);
+        }
+
+        $category = Category::find($categoryId);
+
+        if (!$category) {
+            return response()->json([
+                'message' => "La categoría no existe"
+            ]);
+        }
+
+        // Consulta base
+        $wordsQuery = $category->words()->with('options')->orderBy('word', $order);
+
+        // Filtro por letra si se proporciona
+        $words = $wordsQuery->get()->filter(function ($word) use ($letter) {
+            if ($letter) {
+                return stripos($word->word, $letter) === 0;
+            }
+            return true;
+        })->values();
+
+        if ($words->isEmpty()) {
+            return response()->json([
+                'message' => "No se encontraron palabras que coincidan con los criterios."
+            ]);
+        }
+
+        return response()->json([
+            'message' => $words
+        ]);
     }
 
 }
