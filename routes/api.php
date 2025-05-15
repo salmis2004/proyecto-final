@@ -36,3 +36,4 @@ Route::middleware('auth:sanctum')->post('check-answer', [WordController::class, 
 Route::post('word-letter', [WordController::class, 'getWordLetter']);
 Route::post('order-word-letter', [WordController::class, 'getWordOrderLetter']);
 Route::post('getWords', [WordController::class, 'getWords']);
+Route::middleware('auth:sanctum')->get('/word-events', [WordEventController::class, 'registrerEvent']);
