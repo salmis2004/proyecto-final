@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\PlayerWord;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\WordEvent;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Word;
 
