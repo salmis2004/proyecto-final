@@ -46,9 +46,5 @@ class User extends Authenticatable
     {
         return $this ->belongsToMany(Word::class, 'player_words', 'user_id', 'word_id');
     }
-
-
-    
-
     
 }
