@@ -196,10 +196,8 @@ class WordController extends Controller
             ]);
         }
 
-        // Consulta base
         $wordsQuery = $category->words()->with('options')->orderBy('word', $order);
 
-        // Filtro por letra si se proporciona
         $words = $wordsQuery->get()->filter(function ($word) use ($letter) {
             if ($letter) {
                 return stripos($word->word, $letter) === 0;
