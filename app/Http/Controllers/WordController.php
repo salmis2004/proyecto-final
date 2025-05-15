@@ -67,57 +67,40 @@ class WordController extends Controller
             }
         }
         
-        WordEvent::create([
-            'user_id' => $user->id,
-            'word_id' => $word->id,
-            'event' => 'consulta',
+        return response()->json([
+            'category' => $words->first()->category->name,
+            'words' => $words,
         ]);
     }
 
     //Funcion para responder la definicion correscta de la palabra 
-    public function checkAnswer(Request $request){
-        $user = Auth::user();
+    public function checkAnswer( Request $request){
+        $wordId=$request->input('word_id');
+        $selectOption=$request->input('select_option');
 
-        $wordId = $request->input('word_id');
-        $selectOption = $request->input('select_option');
-
-        $word = Word::find($wordId);
-
+        $word=Word::find($wordId);
         if(!$word){
             return response()->json([
                 'message'=>'La palabra no existe'
             ]);
         }
 
-        $option = $word->options->find($selectOption);
+        $option=$word->options->find($selectOption);
 
         if(!$option){
-            // Registrar respuesta incorrecta (opción no válida)
-            WordEvent::create([
-                'user_id' => $user->id,
-                'word_id' => $word->id,
-                'event' => 'respuesta_incorrecta',
-            ]);
-
             return response()->json([
-                'message'=>'Respuesta incorrecta'
+                'message'=>'Respuesta Incorectaaaaa'
             ]);
         }
 
-        $isCorrect = $option->is_correct == 1;
+        if($option ->is_correct==1){
+            return response()->json ([
+                'message'=>'Respuesta correctaaaaa!!!!',
+                'correct'=>true
+            ]);
+        }
 
-        WordEvent::create([
-            'user_id' => $user->id,
-            'word_id' => $word->id,
-            'event' => $isCorrect ? 'respuesta_correcta' : 'respuesta_incorrecta',
-        ]);
-
-        return response()->json([
-            'message' => $isCorrect ? 'Respuesta correcta!' : 'Respuesta incorrecta',
-            'correct' => $isCorrect
-        ]);
     }
-
 
     //Me optiene una palabra en base a la letra que me de el usuario
     public function getWordLetter(Request $request){
